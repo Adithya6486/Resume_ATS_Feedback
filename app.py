@@ -1,7 +1,4 @@
-from dotenv import load_dotenv
-import os
 
-load_dotenv()  
 import re
 import json
 import tempfile
@@ -295,4 +292,5 @@ if st.button("✅ Submit"):
         )
     else:
         st.warning("Please upload a resume and select a role before submitting.")
+
 
