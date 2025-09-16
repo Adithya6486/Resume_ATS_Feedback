@@ -1,0 +1,125 @@
+{
+  "Data & Analytics": {
+    "Data Scientist": {
+      "skills": ["Python", "Statistics", "SQL", "Machine Learning", "Deep Learning", "Data Visualization", "Feature Engineering", "Data Cleaning"],
+      "tools": ["Pandas", "Scikit-learn", "TensorFlow", "Jupyter", "Tableau"]
+    },
+    "Machine Learning Engineer": {
+      "skills": ["Python", "ML Algorithms", "Model Deployment", "Data Structures", "Cloud Platforms", "APIs", "Automation", "Optimization"],
+      "tools": ["TensorFlow", "PyTorch", "MLflow", "Docker"]
+    },
+    "AI Engineer": {
+      "skills": ["Python", "Deep Learning", "NLP", "Reinforcement Learning", "Transformers", "Prompt Engineering"],
+      "tools": ["PyTorch", "Hugging Face", "OpenAI APIs", "LangChain"]
+    },
+    "Data Analyst": {
+      "skills": ["SQL", "Excel", "Data Visualization", "Python", "Statistics", "Reporting", "Data Cleaning"],
+      "tools": ["Power BI", "Tableau", "Pandas", "Excel"]
+    },
+    "Business Analyst": {
+      "skills": ["Requirement Gathering", "SQL", "Excel", "Communication", "Agile", "Data Visualization", "Documentation"],
+      "tools": ["Excel", "Power BI", "Jira", "Confluence"]
+    },
+    "Database Administrator": {
+      "skills": ["SQL", "Query Optimization", "Data Modeling", "Backup & Recovery", "Security", "Performance Tuning"],
+      "tools": ["MySQL", "PostgreSQL", "Oracle", "MongoDB"]
+    }
+  },
+
+  "Software Development": {
+    "Software Engineer": {
+      "skills": ["Java", "Python", "Data Structures", "Algorithms", "C++", "OOP", "System Design", "Debugging"],
+      "tools": ["Git", "IntelliJ", "VS Code", "Docker"]
+    },
+    "Backend Developer": {
+      "skills": ["Java", "Python", "APIs", "Databases", "Microservices", "Authentication", "Cloud Basics"],
+      "tools": ["Spring Boot", "Django", "Express.js", "PostgreSQL"]
+    },
+    "Frontend Developer": {
+      "skills": ["HTML", "CSS", "JavaScript", "React", "Angular", "UI/UX", "Responsive Design", "Testing"],
+      "tools": ["React.js", "Angular", "Figma", "Bootstrap"]
+    },
+    "Full Stack Developer": {
+      "skills": ["HTML", "JavaScript", "React", "Node.js", "Databases", "APIs", "Authentication", "Cloud Basics"],
+      "tools": ["React.js", "Node.js", "Django", "MongoDB"]
+    },
+    "Mobile App Developer": {
+      "skills": ["Java", "Kotlin", "Swift", "Flutter", "React Native", "UI Design", "Testing"],
+      "tools": ["Android Studio", "Xcode", "Firebase", "Flutter SDK"]
+    }
+  },
+
+  "Cloud Roles": {
+    "Cloud Engineer": {
+      "skills": ["AWS", "Azure", "Cloud Architecture", "Linux", "Networking", "Security", "Automation"],
+      "tools": ["AWS", "Terraform", "Kubernetes", "Docker"]
+    },
+    "DevOps Engineer": {
+      "skills": ["Linux", "CI/CD", "Automation", "Cloud", "Containers", "Scripting", "Monitoring"],
+      "tools": ["Jenkins", "Docker", "Kubernetes", "Ansible", "Git"]
+    }
+  },
+
+  "Salesforce Roles": {
+    "Salesforce Administrator": {
+      "skills": ["User Management", "Flows", "Reports", "Dashboards", "Security", "CRM Customization"],
+      "tools": ["Salesforce CRM", "Lightning Platform", "Tableau CRM"]
+    },
+    "Salesforce Developer": {
+      "skills": ["Apex", "Lightning Web Components", "SOQL", "Triggers", "APIs", "Integration", "Customization"],
+      "tools": ["Salesforce CRM", "MuleSoft", "Heroku", "Tableau CRM"]
+    },
+    "Salesforce Consultant": {
+      "skills": ["Requirement Gathering", "Process Mapping", "CRM Customization", "Data Migration", "Stakeholder Management"],
+      "tools": ["Salesforce Platform", "AppExchange", "Tableau CRM"]
+    },
+    "Salesforce Architect": {
+      "skills": ["System Design", "Integration", "Security", "Cloud Architecture", "Performance Optimization"],
+      "tools": ["Salesforce Cloud", "MuleSoft", "Heroku", "Tableau CRM"]
+    }
+  },
+
+  "SAP Roles": {
+    "SAP Functional Consultant": {
+      "skills": ["SAP Modules (FI/CO, MM, SD, HR)", "Business Process Mapping", "Configuration", "Documentation", "End-User Training"],
+      "tools": ["SAP S/4HANA", "SAP Fiori", "SAP ECC"]
+    },
+    "SAP Technical Consultant": {
+      "skills": ["ABAP Programming", "System Administration", "Debugging", "Enhancements", "Performance Tuning"],
+      "tools": ["SAP NetWeaver", "SAP HANA", "SAP Fiori"]
+    },
+    "SAP Solution Architect": {
+      "skills": ["Solution Design", "ERP Integration", "Cloud Migration", "Security", "Performance Optimization"],
+      "tools": ["SAP S/4HANA", "SAP Cloud Platform", "SAP BW"]
+    },
+    "SAP Analyst / BI Specialist": {
+      "skills": ["Data Analysis", "Reporting", "BI Solutions", "SQL", "ETL", "Visualization"],
+      "tools": ["SAP BW/BI", "SAP Fiori", "SAP Analytics Cloud"]
+    }
+  },
+
+  "Cybersecurity": {
+    "Ethical Hacker": {
+      "skills": ["Networking", "Penetration Testing", "Web Security", "Cryptography", "Vulnerability Assessment", "Linux Security"],
+      "tools": ["Kali Linux", "Metasploit", "Burp Suite", "Nmap", "Wireshark"]
+    },
+    "Cybersecurity Engineer": {
+      "skills": ["Security Testing", "Risk Analysis", "Cryptography", "Cloud Security", "Incident Response", "SIEM"],
+      "tools": ["Splunk", "Nessus", "Wireshark", "Kali Linux"]
+    }
+  },
+
+  "Quality & Testing": {
+    "QA Engineer / Tester": {
+      "skills": ["Manual Testing", "Automation Testing", "Test Planning", "Debugging", "API Testing", "Reporting"],
+      "tools": ["Selenium", "JUnit", "Postman", "Cypress", "Jira"]
+    }
+  },
+
+  "Design & User Experience": {
+    "UI/UX Designer": {
+      "skills": ["Wireframing", "Prototyping", "Visual Design", "User Research", "Responsive Design", "Accessibility"],
+      "tools": ["Figma", "Adobe XD", "Photoshop", "Illustrator"]
+    }
+  }
+}
