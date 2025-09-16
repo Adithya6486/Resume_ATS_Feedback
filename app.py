@@ -14,7 +14,7 @@ import streamlit as st
 # ==============================
 # 📌 Step 1: Setup Gemini AI
 # ==============================
-genai.configure(api_key=os.getenv("GENAI_API_KEY"))
+genai.configure(api_key=st.secrets["GENAI_API_KEY"])
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 # ==============================
@@ -295,3 +295,4 @@ if st.button("✅ Submit"):
         )
     else:
         st.warning("Please upload a resume and select a role before submitting.")
+
