@@ -144,101 +144,179 @@ def evaluate_resume_sections_and_score(resume_data, role_info, candidate_type):
     score = 0
     # --- Summary ---
     summary = resume_data.get("summary", "")
-    if not summary: report["Summary"] = "❌ Missing"
-    elif len(summary) > 30: report["Summary"], score = "✅ Good", score+10
-    else: report["Summary"], score = "⚠️ Improve", score+5
+    if not summary:
+        report["Summary"] = "❌ Missing"
+    elif len(summary) > 30:
+        report["Summary"], score = "✅ Good", score + 10
+    else:
+        report["Summary"], score = "⚠️ Improve", score + 5
 
     # --- Skills ---
     resume_skills = resume_data.get("skills", [])
     role_skills = role_info.get("skills", [])
     matched_skills = [s for s in resume_skills if s.lower() in map(str.lower, role_skills)]
     if role_skills:
-        if len(matched_skills) == 0: report["Skills"] = "❌ Present but not relevant"
+        if len(matched_skills) == 0:
+            report["Skills"] = "❌ Present but not relevant"
         else:
-            percent = len(matched_skills)/len(role_skills)*100
-            if percent >= 80: report["Skills"], score = "✅ Good", score+30
-            else: report["Skills"], score = "⚠️ Improve", score+(percent/100*30)
-    else: report["Skills"] = "❌ Missing"
+            percent = len(matched_skills) / len(role_skills) * 100
+            if percent >= 80:
+                report["Skills"], score = "✅ Good", score + 30
+            else:
+                report["Skills"], score = "⚠️ Improve", score + (percent / 100 * 30)
+    else:
+        report["Skills"] = "❌ Missing"
 
     # --- Tools ---
     role_tools = role_info.get("tools", [])
     matched_tools = [s for s in resume_skills if s.lower() in map(str.lower, role_tools)]
     if role_tools:
-        if len(matched_tools) == 0: report["Tools"] = "❌ Present but not relevant"
+        if len(matched_tools) == 0:
+            report["Tools"] = "❌ Present but not relevant"
         else:
-            percent_tools = len(matched_tools)/len(role_tools)*100
-            if percent_tools >= 80: report["Tools"], score = "✅ Good", score+10
-            else: report["Tools"], score = "⚠️ Improve", score+(percent_tools/100*10)
-    else: report["Tools"] = "❌ Missing"
+            percent_tools = len(matched_tools) / len(role_tools) * 100
+            if percent_tools >= 80:
+                report["Tools"], score = "✅ Good", score + 10
+            else:
+                report["Tools"], score = "⚠️ Improve", score + (percent_tools / 100 * 10)
+    else:
+        report["Tools"] = "❌ Missing"
 
-    # --- Projects ---
+    # --- Projects (FIXED) ---
     projects = resume_data.get("projects", [])
-    min_projects = 3 if candidate_type=="fresher" else 5
+    min_projects = 3 if candidate_type == "fresher" else 5
     role_keywords = [x.lower() for x in role_skills + role_tools]
-    def project_related(proj): return any(kw in (proj.get("title","")+" "+proj.get("description","")).lower() for kw in role_keywords)
+
+    def project_related(proj):
+        # Include title, description, and technologies for matching
+        project_text = (
+            proj.get("title", "") + " " +
+            proj.get("description", "") + " " +
+            " ".join(proj.get("technologies", []))
+        ).lower()
+        # Match if any role keyword appears in project text
+        return any(kw in project_text for kw in role_keywords)
+
     related_projects = [p for p in projects if project_related(p)]
-    if len(projects)==0: report["Projects"]="❌ Missing"
-    elif len(related_projects)==0: report["Projects"]="❌ Present but not relevant"
-    elif len(projects)>=min_projects: report["Projects"], score="✅ Good", score+20
-    else: report["Projects"], score="⚠️ Improve", score+(len(projects)/min_projects*20)
+
+    if len(projects) == 0:
+        report["Projects"] = "❌ Missing"
+    elif len(related_projects) == 0:
+        report["Projects"] = "❌ Present but not relevant"
+    elif len(projects) >= min_projects:
+        report["Projects"], score = "✅ Good", score + 20
+    else:
+        report["Projects"], score = "⚠️ Improve", score + (len(projects) / min_projects * 20)
 
     # --- Contact Info ---
-    contact_fields = ["name","email","phone","location"]
+    contact_fields = ["name", "email", "phone", "location"]
     missing = [f for f in contact_fields if not resume_data.get(f)]
-    if not missing: report["Contact Info"], score="✅ Good", score+10
-    else: report["Contact Info"], score="⚠️ Improve", score+(sum([1 for f in contact_fields if resume_data.get(f)])/len(contact_fields)*10)
+    if not missing:
+        report["Contact Info"], score = "✅ Good", score + 10
+    else:
+        report["Contact Info"], score = "⚠️ Improve", score + (
+            sum([1 for f in contact_fields if resume_data.get(f)]) / len(contact_fields) * 10
+        )
 
     # --- Links ---
     links = resume_data.get("links", {})
-    if links.get("linkedin") or links.get("github"): report["Links"], score="✅ Good", score+5
-    else: report["Links"]="❌ Missing"
+    if links.get("linkedin") or links.get("github"):
+        report["Links"], score = "✅ Good", score + 5
+    else:
+        report["Links"] = "❌ Missing"
 
     # --- Certifications ---
     certifications = resume_data.get("certifications", [])
-    cert_related = any(any(kw in cert.lower() for kw in role_keywords) for cert in certifications)
-    if len(certifications)==0: report["Certifications"]="❌ Missing"
-    elif not cert_related: report["Certifications"]="❌ Present but not relevant"
-    else: report["Certifications"], score="✅ Good", score+5
+    role_keywords_lower = [kw.lower() for kw in role_keywords]
+    cert_related = any(any(kw in cert.lower() for kw in role_keywords_lower) for cert in certifications)
+    if len(certifications) == 0:
+        report["Certifications"] = "❌ Missing"
+    elif not cert_related:
+        report["Certifications"] = "❌ Present but not relevant"
+    else:
+        report["Certifications"], score = "✅ Good", score + 5
 
     # --- Achievements ---
     achievements = resume_data.get("achievements", [])
-    ach_related = any(any(kw in ach.lower() for kw in role_keywords) for ach in achievements)
-    if len(achievements)==0: report["Achievements"]="❌ Missing"
-    elif not ach_related: report["Achievements"]="❌ Present but not relevant"
-    else: report["Achievements"], score="✅ Good", score+5
+    ach_related = any(any(kw in ach.lower() for kw in role_keywords_lower) for ach in achievements)
+    if len(achievements) == 0:
+        report["Achievements"] = "❌ Missing"
+    elif not ach_related:
+        report["Achievements"] = "❌ Present but not relevant"
+    else:
+        report["Achievements"], score = "✅ Good", score + 5
 
     # --- Role relevance ---
-    if summary and any(k in summary.lower() for k in role_keywords): report["Role Relevance"], score="✅ Good", score+5
-    else: report["Role Relevance"]="❌ Missing"
+    if summary and any(k in summary.lower() for k in role_keywords):
+        report["Role Relevance"], score = "✅ Good", score + 5
+    else:
+        report["Role Relevance"] = "❌ Missing"
 
-    return report, min(int(round(score)),100)
+    return report, min(int(round(score)), 100)
+
 
 # ==============================
 # 📌 Step 7: AI Feedback
 # ==============================
-def generate_ai_feedback(resume_data, role, candidate_type):
+def generate_ai_feedback(resume_data, role, candidate_type, sections_report, role_info):
+    # --- Extract skills & tools from resume ---
+    resume_skills = set([s.lower() for s in resume_data.get("skills", [])])
+    role_skills = set([s.lower() for s in role_info.get("skills", [])])
+    role_tools = set([t.lower() for t in role_info.get("tools", [])])
+
+    # --- Find gaps ---
+    missing_skills = [s for s in role_skills if s not in resume_skills]
+    missing_tools = [t for t in role_tools if t not in resume_skills]
+
+    projects = resume_data.get("projects", [])
+    min_projects = 3 if candidate_type == "fresher" else 5
+    project_gap = max(0, min_projects - len(projects))
+
+    certifications = resume_data.get("certifications", [])
+    cert_missing = len(certifications) == 0
+
+    improvement_summary = {
+        "missing_skills": missing_skills,
+        "missing_tools": missing_tools,
+        "project_gap": project_gap,
+        "certifications_missing": cert_missing
+    }
+
+    # --- Build AI prompt ---
     prompt = f"""
 You are an expert recruiter.
-Evaluate this resume for role: {role}, Candidate type: {candidate_type.capitalize()}
+
+Evaluate this resume for role: {role}, Candidate type: {candidate_type.capitalize()}.
 
 Resume Data:
-{json.dumps(resume_data)}
+{json.dumps(resume_data, indent=2)}
+
+ATS Section Report:
+{json.dumps(sections_report, indent=2)}
+
+Detected Gaps:
+{json.dumps(improvement_summary, indent=2)}
 
 Guidelines:
-1. Generate 9–12 concise bullet points, max 18 words each.
-2. Focus on strengths, improvement areas, skills, projects, achievements, certifications.
-3. Tailor suggestions strictly to role and candidate type.
-4. Use action verbs.
+1. ONLY use Resume Data, ATS Section Report, and Detected Gaps. Do not invent details.
+2. Generate 10–12 bullet points, max 18 words each.
+3. Highlight strengths (skills, projects, achievements) from Resume Data.
+4. Explicitly mention missing or weak areas from Detected Gaps.
+5. Suggest specific improvements (e.g., add SQL projects, include certifications, expand project results).
+6. Use action verbs: Developed, Improved, Added, Enhanced.
+7. Output only bullet points, no extra explanation.
 
 Output:
-- Bullet points only as plain text.
+- Bullet points only
 """
+
     try:
         response = model.generate_content(prompt)
         return response.text.strip()
     except Exception as e:
         st.warning(f"AI feedback generation failed: {e}")
         return "⚠️ AI feedback not available."
+
 
 # ==============================
 # 📌 Step 8: Streamlit UI
@@ -265,7 +343,13 @@ if st.button("✅ Submit"):
             sections_report, ats_score = evaluate_resume_sections_and_score(
                 resume_data, roles_dict[selected_category][selected_role], candidate_type
             )
-            ai_feedback = generate_ai_feedback(resume_data, selected_role, candidate_type)
+            ai_feedback = generate_ai_feedback(
+                resume_data,
+                selected_role,
+                candidate_type,
+                sections_report,
+                roles_dict[selected_category][selected_role]
+            )
 
         # Display results
         st.subheader(f"Candidate Type: {candidate_type.capitalize()}")
@@ -292,5 +376,3 @@ if st.button("✅ Submit"):
         )
     else:
         st.warning("Please upload a resume and select a role before submitting.")
-
-
