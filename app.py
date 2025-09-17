@@ -299,16 +299,18 @@ Detected Gaps:
 
 Guidelines:
 1. ONLY use Resume Data, ATS Section Report, and Detected Gaps. Do not invent details.
-2. Generate 10–12 bullet points, max 18 words each.
-3. Highlight strengths (skills, projects, achievements) from Resume Data.
-4. Explicitly mention missing or weak areas from Detected Gaps.
-5. Suggest specific improvements (e.g., add SQL projects, include certifications, expand project results).
-6. Use action verbs: Developed, Improved, Added, Enhanced.
-7. Output only bullet points, no extra explanation.
+2. Do NOT mention candidate name, contact details, or education scores.
+3. Generate 10–12 bullet points, max 18 words each.
+4. Highlight strengths in skills, projects, tools, and achievements from Resume Data.
+5. Explicitly mention missing or weak areas from Detected Gaps.
+6. Suggest specific improvements (e.g., add SQL projects, include certifications, expand project results).
+7. Use action verbs: Developed, Improved, Added, Enhanced, Strengthened.
+8. Output only bullet points, no extra explanation.
 
 Output:
 - Bullet points only
 """
+
 
     try:
         response = model.generate_content(prompt)
@@ -376,3 +378,4 @@ if st.button("✅ Submit"):
         )
     else:
         st.warning("Please upload a resume and select a role before submitting.")
+
