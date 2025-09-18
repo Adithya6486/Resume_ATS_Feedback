@@ -82,7 +82,7 @@ Return strictly valid JSON with keys:
 - education: list of {{degree, institution, year, score}}
 - experience: list of {{company, role, duration, description}}
 - projects: list of {{title, description, technologies}}
-- certifications
+- certifications: list of {{title, description}}
 - achievements
 
 Resume Text:
@@ -378,4 +378,5 @@ if st.button("✅ Submit"):
         )
     else:
         st.warning("Please upload a resume and select a role before submitting.")
+
 
