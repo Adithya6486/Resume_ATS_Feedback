@@ -228,13 +228,20 @@ def evaluate_resume_sections_and_score(resume_data, role_info, candidate_type):
     # --- Certifications ---
     certifications = resume_data.get("certifications", [])
     role_keywords_lower = [kw.lower() for kw in role_keywords]
-    cert_related = any(any(kw in cert.lower() for kw in role_keywords_lower) for cert in certifications)
+
+    cert_related = any(
+    any(kw in (cert.get("title", "") + " " + cert.get("description", "")).lower()
+        for kw in role_keywords_lower)
+        for cert in certifications
+    )
+
     if len(certifications) == 0:
         report["Certifications"] = "❌ Missing"
     elif not cert_related:
         report["Certifications"] = "❌ Present but not relevant"
     else:
         report["Certifications"], score = "✅ Good", score + 5
+  
 
     # --- Achievements ---
     achievements = resume_data.get("achievements", [])
